@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Water Sort Game</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0b0f1a;
+  color:white;
+}
+
+/* 🔘 القائمة */
+nav{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  padding:10px;
+  background:#111;
+}
+
+button{
+  padding:8px 12px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  background:#00ffcc;
+  font-weight:bold;
+}
+
+/* 📄 الصفحات */
+.page{
+  display:none;
+  padding:20px;
+}
+
+.active{
+  display:block;
+}
+
+/* 🎮 اللعبة */
+#tubes-container{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+}
+
+.tube{
+  width:40px;
+  height:160px;
+  border:2px solid white;
+  border-radius:10px;
+  display:flex;
+  flex-direction:column-reverse;
+  overflow:hidden;
+}
+
+.block{ height:25%; }
+
+.red{background:red;}
+.blue{background:blue;}
+.green{background:green;}
+.yellow{background:yellow;}
+.orange{background:orange;}
+.brown{background:brown;}
+.pink{background:pink;}
+.turquoise{background:cyan;}
+.white{background:white;}
+.gray{background:gray;}
+
+.popup{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.8);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+.hidden{display:none;}
+</style>
+
+</head>
+
+<body>
+
+<!-- 🔘 NAV -->
+<nav>
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('game')">Game</button>
+<button onclick="showPage('earn')">Earn</button>
+<button onclick="showPage('privacy')">Privacy</button>
+<button onclick="showPage('contact')">Contact</button>
+</nav>
+
+<!-- 🏠 HOME -->
+<div id="home" class="page active">
+<h1>🧪 Water Sort Puzzle</h1>
+<p>لعبة ذكاء وترتيب الألوان</p>
+<button onclick="showPage('game')">🎮 ابدأ اللعب</button>
+</div>
+
+<!-- 🎮 GAME -->
+<div id="game" class="page">
+
+<h2>🧪 Game</h2>
+<div id="score">النقاط: 0</div>
+
+<div id="tubes-container"></div>
+
+</div>
+
+<!-- 💰 EARN -->
+<div id="earn" class="page">
+<h2>💰 Earn</h2>
+<p>كل مرحلة تمنحك نقاط</p>
+<p>الإعلانات تعطي مكافآت</p>
+</div>
+
+<!-- 📄 PRIVACY -->
+<div id="privacy" class="page">
+<h2>📄 Privacy Policy</h2>
+<p>نستخدم إعلانات من Google AdSense</p>
+<p>لا نجمع بيانات شخصية</p>
+</div>
+
+<!-- 📞 CONTACT -->
+<div id="contact" class="page">
+<h2>📞 Contact</h2>
+<p>للتواصل: dkatradoktor@email.com</p>
+</div>
+
+<script>
+/* 🔄 التنقل بين الصفحات */
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>{
+    p.classList.remove('active');
+  });
+  document.getElementById(id).classList.add('active');
+}
+
+/* 🎮 اللعبة */
+const container = document.getElementById("tubes-container");
+const COLORS = ["red","blue","green","yellow","orange","brown","pink","turquoise","white","gray"];
+
+let tubes = [];
+let selected = null;
+let score = 0;
+
+/* إنشاء لعبة */
+function generate(){
+  tubes = [];
+  container.innerHTML = "";
+
+  let pool = [];
+
+  COLORS.forEach(c=>{
+    for(let i=0;i<4;i++) pool.push(c);
+  });
+
+  pool.sort(()=>Math.random()-0.5);
+
+  for(let i=0;i<13;i++) tubes.push([]);
+
+  pool.forEach(color=>{
+    let placed = false;
+    while(!placed){
+      let t = Math.floor(Math.random()*10);
+      if(tubes[t].length < 4){
+        tubes[t].push(color);
+        placed = true;
+      }
+    }
+  });
+
+  draw();
+}
+
+/* رسم */
+function draw(){
+  container.innerHTML = "";
+
+  tubes.forEach((tube,i)=>{
+    let div = document.createElement("div");
+    div.className = "tube";
+
+    tube.forEach(c=>{
+      let b = document.createElement("div");
+      b.className = "block "+c;
+      div.appendChild(b);
+    });
+
+    div.onclick = ()=>clickTube(i);
+    container.appendChild(div);
+  });
+}
+
+/* اختيار ونقل */
+function clickTube(i){
+
+  if(selected===null){
+    selected=i;
+    return;
+  }
+
+  if(selected===i){
+    selected=null;
+    return;
+  }
+
+  let a = tubes[selected];
+  let b = tubes[i];
+
+  if(a.length>0){
+    let color = a[a.length-1];
+
+    if(b.length===0 || b[b.length-1]===color){
+      a.pop();
+      b.push(color);
+    }
+  }
+
+  selected=null;
+  draw();
+  checkWin();
+}
+
+/* فوز */
+function checkWin(){
+  let win = tubes.every(t=>{
+    return t.length===0 || t.every(c=>c===t[0]);
+  });
+
+  if(win){
+    score++;
+    document.getElementById("score").innerText="النقاط: "+score;
+    alert("🎉 فزت!");
+    generate();
+  }
+}
+
+generate();
+</script>
+
+</body>
+</html>
