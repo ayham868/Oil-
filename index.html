@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -147,14 +146,29 @@ button{
 <p>للتواصل: dkatradoktor@email.com</p>
 </div>
 
-<!-- 📢 قسم الإعلانات: البانر المستطيل الصغير وتحته البانر المربع الكبير -->
+<!-- 📢 قسم الإعلانات المعدل -->
 <div class="ad-banner-container">
   <!-- البانر الأول (المستطيل 320x50) -->
-  <ins style="width: 320px;height:50px" data-width="320" data-height="50" class="fe605216c30" data-domain="//data527.click" data-affquery="/9964376cae292a09f6bd/e605216c30/?placementName=default"><script src="https://data527.click" async></script></ins>
+  <ins style="display:inline-block;width:320px;height:50px" 
+       data-width="320" 
+       data-height="50" 
+       class="fe605216c30" 
+       data-domain="//data527.click" 
+       data-affquery="/9964376cae292a09f6bd/e605216c30/?placementName=default">
+  </ins>
   
   <!-- البانر الثاني (المربع الكبير 300x250) -->
-  <ins style="width: 300px;height:250px" data-width="300" data-height="250" class="s6981353a73" data-domain="//data527.click" data-affquery="/db39a7735b611616b5bb/6981353a73/?placementName=default"><script src="https://data527.click" async></script></ins>
+  <ins style="display:inline-block;width:300px;height:250px" 
+       data-width="300" 
+       data-height="250" 
+       class="s6981353a73" 
+       data-domain="//data527.click" 
+       data-affquery="/db39a7735b611616b5bb/6981353a73/?placementName=default">
+  </ins>
 </div>
+
+<!-- استدعاء سكريبت الإعلانات بشكل خارجي وصحيح لمرة واحدة -->
+<script src="https://data527.click" async></script>
 
 <script>
 /* 🔄 التنقل بين الصفحات */
@@ -251,7 +265,7 @@ function clickTube(i){
   checkWin();
 }
 
-/* تم إصلاح دالة الفوز وإرجاعها لوضعها الأصلي الصحيح */
+/* التحقق من الفوز */
 function checkWin(){
   let win = tubes.every(t=>{
     return t.length===0 || t.every(c=>c===t[0]);
@@ -270,4 +284,3 @@ generate();
 
 </body>
 </html>
-
