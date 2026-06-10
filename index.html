@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -146,7 +147,7 @@ button{
 <p>للتواصل: dkatradoktor@email.com</p>
 </div>
 
-<!-- 📢 قسم الإعلانات المعتمد: البانر المستطيل الصغير وتحته البانر المربع الكبير -->
+<!-- 📢 قسم الإعلانات: البانر المستطيل الصغير وتحته البانر المربع الكبير -->
 <div class="ad-banner-container">
   <!-- البانر الأول (المستطيل 320x50) -->
   <ins style="width: 320px;height:50px" data-width="320" data-height="50" class="fe605216c30" data-domain="//data527.click" data-affquery="/9964376cae292a09f6bd/e605216c30/?placementName=default"><script src="https://data527.click" async></script></ins>
@@ -250,10 +251,10 @@ function clickTube(i){
   checkWin();
 }
 
-/* فوز */
+/* تم إصلاح دالة الفوز وإرجاعها لوضعها الأصلي الصحيح */
 function checkWin(){
   let win = tubes.every(t=>{
-    return t.length===0 || t.every(c=>c===t);
+    return t.length===0 || t.every(c=>c===t[0]);
   });
 
   if(win){
@@ -269,3 +270,4 @@ generate();
 
 </body>
 </html>
+
