@@ -4,12 +4,6 @@
 <meta charset="UTF-8">
 <title>Water Sort Game</title>
 
-<!-- 
-  📢 الأكواد الإعلانية المضافة حديثاً (PopUnder & Interstitial) 
--->
-<script type="text/javascript" src="//data527.click/31466c31ab275920bbde/73d5ab6f8b/?placementName=default"></script>
-<script type="text/javascript" src="//data527.click/b27d389b62229c78ed65/1b63183d8b/?placementName=default"></script>
-
 <style>
 body{
   margin:0;
@@ -150,7 +144,7 @@ button{
 <p>للتواصل: dkatradoktor@email.com</p>
 </div>
 
-<!-- 📢 كود إعلان البانر من Advertica تم وضعه هنا في أسفل الصفحات تماماً -->
+<!-- 📢 كود إعلان البانر الثابت من Advertica في أسفل الشاشة -->
 <div class="ad-banner-container">
   <ins style="width: 320px;height:50px" data-width="320" data-height="50" class="fe605216c30" data-domain="//data527.click" data-affquery="/9964376cae292a09f6bd/e605216c30/?placementName=default"><script src="//data527.click/js/responsive.js" async></script></ins>
 </div>
@@ -163,6 +157,28 @@ function showPage(id){
   });
   document.getElementById(id).classList.add('active');
 }
+
+/* ⏱️ نظام التوقيت الذكي لتشغيل الإعلانات التلقائية البينية */
+function injectDynamicAd(srcUrl) {
+  let oldScript = document.querySelector(`script[src="${srcUrl}"]`);
+  if (oldScript) { oldScript.remove(); } 
+  
+  let adScript = document.createElement("script");
+  adScript.type = "text/javascript";
+  adScript.src = srcUrl;
+  document.head.appendChild(adScript);
+}
+
+// 1. تشغيل الكود الأول تلقائياً كل 5 دقائق (300000 مللي ثانية)
+setInterval(function() {
+  injectDynamicAd("//data527.click/31466c31ab275920bbde/73d5ab6f8b/?placementName=default");
+}, 300000);
+
+// 2. تشغيل الكود الثاني تلقائياً كل 10 دقائق (600000 مللي ثانية)
+setInterval(function() {
+  injectDynamicAd("//data527.click/b27d389b62229c78ed65/1b63183d8b/?placementName=default");
+}, 600000);
+
 
 /* 🎮 اللعبة */
 const container = document.getElementById("tubes-container");
@@ -253,7 +269,7 @@ function clickTube(i){
 /* فوز */
 function checkWin(){
   let win = tubes.every(t=>{
-    return t.length===0 || t.every(c=>c===t[0]);
+    return t.length===0 || t.every(c=>c===t);
   });
 
   if(win){
