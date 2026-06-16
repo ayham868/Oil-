@@ -94,6 +94,12 @@ button{
   margin: 30px auto;
   width: 100%;
 }
+
+/* حاوية الإعلان البيني لصفحة Earn */
+#interstitial-ad-box {
+  margin-top: 20px;
+  text-align: center;
+}
 </style>
 
 </head>
@@ -131,6 +137,8 @@ button{
 <h2>💰 Earn</h2>
 <p>كل مرحلة تمنحك نقاط</p>
 <p>الإعلانات تعطي مكافآت</p>
+<!-- هنا سيتم توليد وتحديث الإعلان البيني تلقائياً في كل مرة تفتح الصفحة -->
+<div id="interstitial-ad-box"></div>
 </div>
 
 <!-- 📄 PRIVACY -->
@@ -177,6 +185,27 @@ function showPage(id){
     p.classList.remove('active');
   });
   document.getElementById(id).classList.add('active');
+
+  // تحديث وحقن الإعلان البيني فقط إذا ضغط المستخدم على صفحة earn
+  if(id === 'earn') {
+    refreshInterstitialAd();
+  }
+}
+
+/* 📢 دالة تحديث وحقن الإعلان البيني داخل صفحة Earn */
+function refreshInterstitialAd() {
+  const adBox = document.getElementById("interstitial-ad-box");
+  
+  // تنظيف الحاوية أولاً لحذف الإعلان القديم
+  adBox.innerHTML = "";
+  
+  // إنشاء عنصر سكريبت جديد للإعلان البيني الخاص بـ Advertica
+  const adScript = document.createElement("script");
+  adScript.type = "text/javascript";
+  adScript.src = "//data527.click/31466c31ab275920bbde/043588bf7d/?placementName=default";
+  
+  // حقن السكريبت داخل صفحة earn لتشغيل وتحديث الإعلان فوراً
+  adBox.appendChild(adScript);
 }
 
 /* 🎮 اللعبة */
